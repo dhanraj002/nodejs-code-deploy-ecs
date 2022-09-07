@@ -13,13 +13,13 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDTECH_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDTECH_AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ${{ secrets.CLOUDTECH_AWS_REGION }}
-  deploy_ecs_development:
-    needs: [build_publish_development]
-    uses: ./.github/workflows/deploy.yml
-    with:
-      APPLICATION: cloudtech
-      ENVIRONMENT: production
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: ${{ secrets.AWS_REGION }}
+#   deploy_ecs_development:
+#     needs: [build_publish_development]
+#     uses: ./.github/workflows/deploy.yml
+#     with:
+#       APPLICATION: cloudtech
+#       ENVIRONMENT: production
+#     secrets:
+#       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#       AWS_REGION: ${{ secrets.AWS_REGION }}
