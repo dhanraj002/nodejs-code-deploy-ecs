@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
     inputs:
       deploymentType:
-        name : 'Deploy to prodcution environment'
         description: 'where to deploy (staging or production))'
         required: true
         default: production
