@@ -6,9 +6,9 @@ on:
         description: 'where to deploy (staging or production))'
         required: true
         default: production
-  push:
-    branches:
-      - development
+#   push:
+#     branches:
+#       - development
 
 jobs:
   build_publish_development:
