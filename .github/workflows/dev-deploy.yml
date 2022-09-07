@@ -3,12 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       deploymentType:
-        description: 'where to deploy (staging or production))'
+        description: 'where to deploy (staging or production)'
         required: true
-        default: production
-#   push:
-#     branches:
-#       - development
+        default: 'production'
 
 jobs:
   build_publish_development:
