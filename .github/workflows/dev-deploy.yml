@@ -2,13 +2,13 @@ name: deploy_development
 on:
   push:
     branches:
-      - staging
+      - main
   workflow_dispatch:
     inputs:
       deploymentType:
         description: 'where to deploy (staging or production)'
         required: true
-        default: 'production'
+        default: 'staging'
 
 jobs:
   build_publish_development:
