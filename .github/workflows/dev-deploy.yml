@@ -1,0 +1,40 @@
+name: deploy_development
+on:
+  workflow_dispatch:
+    inputs:
+      deploymentType:
+        description: 'where to deploy (staging or production)'
+        required: true
+        default: 'production'
+
+jobs:
+  build_publish_development:
+    uses: ./.github/workflows/build.yml
+    with:
+      APPLICATION: cloudtech
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDTECH_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDTECH_AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.CLOUDTECH_AWS_REGION }}
+  deploy_ecs_development_staging:
+    needs: [build_publish_development]
+    uses: ./.github/workflows/deploy.yml
+    with:
+      APPLICATION: cloudtech
+      ENVIRONMENT: staging
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDTECH_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDTECH_AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.CLOUDTECH_AWS_REGION }}
+  deploy_ecs_development_production:
+    if: github.event.inputs.deploymentType == 'production'
+    name: Deploy to production
+    needs: [deploy_ecs_development_staging]
+    uses: ./.github/workflows/deploy.yml
+    with:
+      APPLICATION: cloudtech
+      ENVIRONMENT: production
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDTECH_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDTECH_AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.CLOUDTECH_AWS_REGION }}
