@@ -1,8 +1,5 @@
 name: deploy_development
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       deploymentType:
