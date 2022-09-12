@@ -1,11 +1,6 @@
 name: deploy_development
 on:
   workflow_dispatch:
-    inputs:
-      deploymentType:
-        description: 'where to deploy (staging or production)'
-        required: true
-        default: 'staging'
 
 jobs:
   build_publish_development:
