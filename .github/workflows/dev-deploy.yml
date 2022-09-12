@@ -1,6 +1,8 @@
 name: deploy_development
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - main
   
 jobs:
   build_publish_development:
