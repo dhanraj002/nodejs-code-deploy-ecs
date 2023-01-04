@@ -15,7 +15,7 @@ jobs:
     steps:
       - id: set_env
         run: |
-          if [ ${{ github.ref_type }} == "main" ]; then
+          if [ ${{ github.ref_type }} == "branch" ]; then
             echo "environment=staging" >> $GITHUB_OUTPUT
             echo "Trigger was a push to ${{ github.ref_type }} ${{ github.ref_name }}, deploying to staging environment"
           else
@@ -36,6 +36,10 @@ jobs:
       AWS_REGION: ${{ secrets.CLOUDTECH_AWS_REGION }}
   deploy_ecs_development_staging:
     needs: [build_publish_development,set_env]
+    if: |
+      always() && 
+      (needs.set_env.result == 'success') && 
+      (needs.migrate.result == 'success')
     uses: ./.github/workflows/deploy.yml
     with:
       APPLICATION: cloudtech
