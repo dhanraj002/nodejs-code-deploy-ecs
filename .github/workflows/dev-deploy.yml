@@ -49,18 +49,3 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDTECH_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDTECH_AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ${{ secrets.CLOUDTECH_AWS_REGION }}
-  
-  deploy_ecs_development_production:
-    needs: [deploy_ecs_development_staging,set_env]
-    if: |
-      always() && 
-      (needs.set_env.result == 'success') && 
-      (needs.deploy_ecs_development_staging.result == 'success')
-    uses: ./.github/workflows/deploy.yml
-    with:
-      APPLICATION: cloudtech
-      ENVIRONMENT: ${{ needs.set_env.outputs.environment }}
-    secrets:
-      AWS_ACCESS_KEY_ID: ${{ secrets.CLOUDTECH_AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDTECH_AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: ${{ secrets.CLOUDTECH_AWS_REGION }}
