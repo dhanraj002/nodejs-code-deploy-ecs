@@ -1,6 +1,12 @@
 name: deploy_development
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+
+concurrency: deploy_development-${{ github.ref }}
   
 jobs:
   build_publish_development:
