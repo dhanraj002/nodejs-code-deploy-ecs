@@ -26,6 +26,7 @@ jobs:
       environment: ${{ steps.set_env.outputs.environment }}
   
   build_publish_development:
+    needs: [set_env]
     uses: ./.github/workflows/build.yml
     with:
       APPLICATION: cloudtech
@@ -34,7 +35,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.CLOUDTECH_AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ${{ secrets.CLOUDTECH_AWS_REGION }}
   deploy_ecs_development_staging:
-    needs: [build_publish_development]
+    needs: [build_publish_development,set_env]
     uses: ./.github/workflows/deploy.yml
     with:
       APPLICATION: cloudtech
